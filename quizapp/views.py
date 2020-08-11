@@ -7,6 +7,8 @@ from quizapp.models import Question
     So every application contains a file called urls.py , 
     hence will be able to call this specific app in the project. '''
 
+#adding some comment to test
+
 # Create your views here.
 #Controller(MVC) -- Bussiness Logic
 
