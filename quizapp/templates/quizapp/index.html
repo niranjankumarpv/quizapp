@@ -1,5 +1,24 @@
-<ul>
-    {% for question in questions_list %}
-        <li>{{ question.content }}</li>
-    {% endfor %}
-</ul>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>List of Questions</h2>
+                <ul class="list-group"  >
+                    {% for question in questions_list %}
+                    <li class="list-group-item"><a href="/quiz/{{ question.id }}">{{ question.content }}</a></li>
+                    {% endfor %}
+                </ul>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+
+

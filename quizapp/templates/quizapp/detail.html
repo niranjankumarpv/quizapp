@@ -1,0 +1,32 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form action="" method="post">
+            {% csrf_token %}
+            <h1>{{ question.content }}</h1>
+            <input type="hidden" name="question_id" value="{{ question.id }}" class="form-control"/>
+            {% for answer in question.answer_set.all %}
+            <input type="radio" name="answer" value="{{ answer.id }}" /><label>{{ answer.content }}</label><br />
+            {% endfor %}
+            <br />
+            <input type="submit" value="Check Answer" class="btn btn-primary">
+            </form>
+
+            {% if message %}
+                {% if result %}
+                    <p class="alert alert-success"><strong>{{ message }}</strong></p>
+                    <p class="alert alert-info"><strong>{{ score }}</strong></p>
+                {% else %}
+                    <p class="alert alert-danger"><strong>{{ message }}</strong></p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
