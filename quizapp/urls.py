@@ -6,7 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:question_id>', views.detail, name='detail'),
-    path('login', views.login, name='login')
+    path('login', views.login, name='login'),
+    path('point/', views.point, name='point'),
 ]
 
 #Hence after creating the URL patterns in the urls.py of the application, we have to include it in the urls.py of the project.

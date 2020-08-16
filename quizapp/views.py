@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from quizapp.models import Question
+from . forms import QuestionForm
 from django.contrib.auth import authenticate
 
 ''' In views.py we write a bussiness logic where it contains what the app should do.
@@ -23,7 +24,6 @@ def index(request):
 def detail(request, question_id):
     message = ""
     is_correct = False
-    score = 0
     if request.method == "POST":
         answer_id = int(request.POST.get("answer"))
         question = Question.objects.get(id=question_id)
@@ -31,14 +31,18 @@ def detail(request, question_id):
             if answer.id == answer_id and answer.correct:
                 message = "correct answer"
                 is_correct = True
-                score += 1
+                item = Question.objects.get(pk=question_id)
+                item.points = 1
+                item.save()
                 break
         if not is_correct:
+            item = Question.objects.get(pk=question_id)
+            item.points = 0
+            item.save()
             message = "wrong answer"
-
     question = Question.objects.get(id=question_id)
     return render(request, "quizapp/detail.html", {'question': question, 'message': message,
-                                                   'result': is_correct, 'score': score})
+                                                   'result': is_correct})
 
 def login(request):
     message = ""
@@ -51,3 +55,21 @@ def login(request):
         else:
             message = "Either Username or Password is wrong"
     return render(request, "quizapp/login.html", {'message': message})
+
+def point(request):
+    total_points = 0
+    if request.method == "POST":
+        form = QuestionForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            all_items = Question.objects.all
+            for item in all_items:
+                total_points = total_points + item.points
+            return render(request, "quizapp/point.html", {'all_items': all_items, 'total_point':total_points})
+    else:
+        items = Question.objects.all()
+        for item in items:
+            total_points = total_points + item.points
+        all_items = Question.objects.all
+        return render(request, "quizapp/point.html", {'all_items': all_items, 'total_points':total_points})

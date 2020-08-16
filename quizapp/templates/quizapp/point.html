@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-$END$
+ <table class="table table-bordered">
+     <th><center> Questions</center></th><th><center> Points</center></th>
+            {% for items in all_items %}
+                    <tr class="table-secondary">
+                        <td><center>{{ items.content }}</center></td>
+                        <td><center>{{ items.points }}</center></td>
+                    </tr>
+            {% endfor %}
+     <th><center> Total Points </center></th><th><center>{{ total_points }}</center></th>
 </body>
 </html>
+
+
+

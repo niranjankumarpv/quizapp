@@ -9,6 +9,7 @@ from django.db import models
 '''
 class Question(models.Model):
     content = models.CharField(blank=False, max_length=200, help_text="Enter the Question")
+    points = models.IntegerField(default=0)
 
     def  __str__(self):
         return self.content
